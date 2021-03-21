@@ -5,7 +5,8 @@ import {
   getDetailPostView,
   addNewPost,
   LikePost,
-  AddComment,
+  DeletePost,
+  UpdatePost,
 } from "../controllers/PostController.js";
 const PostRoutes = express.Router();
 
@@ -14,6 +15,7 @@ PostRoutes.get("/:id", getPostById);
 PostRoutes.get("/:id/detail", getDetailPostView);
 PostRoutes.post("/", addNewPost);
 PostRoutes.post("/like/:post_id", LikePost);
+PostRoutes.post("/delete/:post_id", DeletePost);
+PostRoutes.post("/update/:post_id", UpdatePost);
 
-PostRoutes.post("/comment/:post_id", AddComment);
 export default PostRoutes;

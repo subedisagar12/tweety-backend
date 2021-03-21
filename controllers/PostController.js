@@ -1,5 +1,6 @@
 import Post from "../models/PostModel.js";
 import User from "../models/UserModel.js";
+import Comment from "../models/CommentModel.js";
 
 export const getAllPosts = async (req, res) => {
   try {
@@ -29,6 +30,14 @@ export const getDetailPostView = (req, res) => {
 
 export const addNewPost = async (req, res) => {
   try {
+    if (req.body.tweet.length > 500) {
+      return res.send({
+        data: {},
+        success: "",
+        error:
+          "Tweet exceeded the word limit. Tweet can be of maximum 500 words",
+      });
+    }
     let newPost = new Post({
       tweet: req.body.tweet,
       author: req.headers["auth-user-id"],
@@ -83,30 +92,23 @@ export const LikePost = async (req, res) => {
   }
 };
 
-export const AddComment = async (req, res) => {
+export const DeletePost = async (req, res) => {
   try {
-    let post = await Post.findOne({ _id: req.params.post_id });
-    if (post) {
-      let data = await Post.findOneAndUpdate(
-        { _id: req.params.post_id },
-        {
-          $addToSet: {
-            comments: {
-              commented_by: req.headers["auth-user-id"],
-              comment: req.body.comment,
-            },
-          },
-        }
-      );
-      return res.send({
-        data: data,
-        success: "Your comment has been posted",
-        error: "",
-      });
-    } else {
-      return res.send({ data: {}, success: "", error: "Post not found" });
-    }
+    let post = await Post.findOneAndDelete({ _id: req.params.post_id });
+
+    Comment.deleteMany({ post: req.params.post_id })
+      .then(() =>
+        console.log(`Deleted all comments to the post ${req.params.post_id}`)
+      )
+      .catch((e) => console.log(e));
+    return res.send({
+      data: post,
+      success: "Post has been deleted successfully.Refresh to view the change",
+      error: "",
+    });
   } catch (e) {
     return res.send({ data: {}, success: "", error: e.message });
   }
 };
+
+export const UpdatePost = (req, res) => {};

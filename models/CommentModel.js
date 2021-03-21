@@ -2,8 +2,7 @@ import mongoose from "mongoose";
 
 const CommentSchema = new mongoose.Schema({
   commented_by: {
-    type: String,
-    required: true,
+    type: Object,
   },
   post: {
     type: String,
