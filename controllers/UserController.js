@@ -172,14 +172,65 @@ export const UnFollowUser = async (req, res) => {
   }
 };
 
-export const getSingleUser=async(req,res)=>{
-  try{
-  let user=await User.findOne({_id:req.params.id})
-  if(user){
-    return res.send({ data: user, success: "User Fetched", error: "" });
-  }
-  return res.send({ data: {}, success: "", error: "User not found" });
-  }catch(e){
+export const getSingleUser = async (req, res) => {
+  try {
+    let user = await User.findOne({ _id: req.params.id });
+    if (user) {
+      return res.send({ data: user, success: "User Fetched", error: "" });
+    }
+    return res.send({ data: {}, success: "", error: "User not found" });
+  } catch (e) {
     return res.send({ data: {}, success: "", error: e.message });
   }
-}
+};
+
+export const updateUserInfo = async (req, res) => {
+  try {
+    if (req.file) {
+      let user = await User.findOneAndUpdate(
+        { _id: req.headers["auth-user-id"] },
+        {
+          name: req.body.name,
+          profileImage: req.file.path,
+        }
+      );
+
+      if (user) {
+        return res.send({
+          data: user,
+          success: "Information updated Successfully. Refresh to view changes",
+          error: "",
+        });
+      } else {
+        return res.send({
+          data: {},
+          success: "",
+          error: "Cannot update the profile",
+        });
+      }
+    } else {
+      let user = await User.findOneAndUpdate(
+        { _id: req.headers["auth-user-id"] },
+        {
+          name: req.body.name,
+        }
+      );
+
+      if (user) {
+        return res.send({
+          data: user,
+          success: "Information updated Successfully. Refresh to view changes",
+          error: "",
+        });
+      } else {
+        return res.send({
+          data: {},
+          success: "",
+          error: "Cannot update the profile",
+        });
+      }
+    }
+  } catch (e) {
+    return res.send({ data: {}, success: "", error: e.message });
+  }
+};
