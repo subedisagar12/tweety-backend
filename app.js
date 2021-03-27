@@ -23,9 +23,9 @@ import authenticate from "./middlewares/Authenticate.js";
 // app.options("*", cors());
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("profileImages"));
+  app.use(express.static("./profileImages"));
 }
-app.use("/profileImages", express.static("profileImages"));
+// app.use("/profileImages", express.static("profileImages"));
 app.use("/user", UserRoutes);
 app.use("/post", authenticate, PostRoutes);
 app.use("/comment", authenticate, CommentRoutes);
