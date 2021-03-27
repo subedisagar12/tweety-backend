@@ -20,7 +20,7 @@ import CommentRoutes from "./routes/CommentRoutes.js";
 import authenticate from "./middlewares/Authenticate.js";
 
 // User Routes
-app.options("*", cors());
+// app.options("*", cors());
 app.use("/profileImages", express.static("profileImages"));
 // if (process.env.NODE_ENV === "production") {
 //   app.use(express.static("client/tweety/build"));
