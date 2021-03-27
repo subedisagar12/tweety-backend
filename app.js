@@ -11,7 +11,7 @@ let PORT = process.env.PORT || "5000";
 app.use(express.json());
 app.use(cors());
 const corsOptions = {
-  origin: "https://tweety-sagar.netlify.app",
+  "Access-Control-Allow-Origin": "https://tweety-sagar.netlify.app",
 };
 // Routes import
 import UserRoutes from "./routes/UserRoutes.js";
