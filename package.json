@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
-  "type":"module",
+  "type": "module",
   "scripts": {
-    "start":"nodemon app.js",
+    "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-post-build":"NPM_CONFIG_PRODUCTION=false npm install --prefix client/tweety && npm run build --prefix client/tweety"
+    "heroku-post-build": "NPM_CONFIG_PRODUCTION=false npm install && npm run build "
   },
   "keywords": [],
   "author": "",

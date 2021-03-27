@@ -22,14 +22,9 @@ import authenticate from "./middlewares/Authenticate.js";
 // User Routes
 app.options("*", cors());
 app.use("/profileImages", express.static("profileImages"));
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/tweety/build"));
-  app.get("*", (req, res) => {
-    res.sendFile(
-      path.resolve(__dirname, "client", "tweety", "build", "index.html")
-    );
-  });
-}
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static("client/tweety/build"));
+// }
 app.use("/user", UserRoutes);
 app.use("/post", authenticate, PostRoutes);
 app.use("/comment", authenticate, CommentRoutes);
