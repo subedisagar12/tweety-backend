@@ -23,9 +23,9 @@ import authenticate from "./middlewares/Authenticate.js";
 // app.options("*", cors());
 
 app.use("/profileImages", express.static("profileImages"));
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static("client/tweety/build"));
-// }
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("profileImages"));
+}
 app.use("/user", UserRoutes);
 app.use("/post", authenticate, PostRoutes);
 app.use("/comment", authenticate, CommentRoutes);
