@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors";
+import path from "path";
 dotenv.config();
 
 const app = express();
@@ -21,6 +22,14 @@ import authenticate from "./middlewares/Authenticate.js";
 // User Routes
 app.options("*", cors());
 app.use("/profileImages", express.static("profileImages"));
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/tweety/build"));
+  app.get("*", (req, res) => {
+    res.sendFile(
+      path.resolve(__dirname, "client", "tweety", "build", "index.html")
+    );
+  });
+}
 app.use("/user", UserRoutes);
 app.use("/post", authenticate, PostRoutes);
 app.use("/comment", authenticate, CommentRoutes);
