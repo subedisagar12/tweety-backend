@@ -10,7 +10,9 @@ let PORT = process.env.PORT || "5000";
 
 app.use(express.json());
 app.use(cors());
-
+const corsOptions = {
+  origin: "https://tweety-sagar.netlify.app",
+};
 // Routes import
 import UserRoutes from "./routes/UserRoutes.js";
 import PostRoutes from "./routes/PostRoutes.js";
@@ -20,14 +22,14 @@ import CommentRoutes from "./routes/CommentRoutes.js";
 import authenticate from "./middlewares/Authenticate.js";
 
 // User Routes
-app.options("*", cors());
+// app.options("*", cors());
 app.use("/profileImages", express.static("profileImages"));
 // if (process.env.NODE_ENV === "production") {
 //   app.use(express.static("client/tweety/build"));
 // }
-app.use("/user", UserRoutes);
-app.use("/post", authenticate, PostRoutes);
-app.use("/comment", authenticate, CommentRoutes);
+app.use("/user", cors(corsOptions), UserRoutes);
+app.use("/post", cors(corsOptions), authenticate, PostRoutes);
+app.use("/comment", cors(corsOptions), authenticate, CommentRoutes);
 
 mongoose.connect(process.env.DATABASE_CONNECTION, {
   useNewUrlParser: true,
