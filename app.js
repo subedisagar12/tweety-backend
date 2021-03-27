@@ -22,7 +22,7 @@ import authenticate from "./middlewares/Authenticate.js";
 // User Routes
 // app.options("*", cors());
 app.use(express.static("public"));
-app.use("/profileImages", express.static(__dirname + "/public/profileImages"));
+app.use("/profileImages", express.static("public/profileImages"));
 // if (process.env.NODE_ENV === "production") {
 //   app.use(express.static("client/tweety/build"));
 // }
