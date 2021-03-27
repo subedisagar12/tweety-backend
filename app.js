@@ -8,7 +8,7 @@ dotenv.config();
 const app = express();
 app.use(cors());
 let PORT = process.env.PORT || "5000";
-
+let __dirname = path.resolve();
 app.use(express.json());
 
 // Routes import
@@ -22,7 +22,7 @@ import authenticate from "./middlewares/Authenticate.js";
 // User Routes
 // app.options("*", cors());
 
-app.use("/profileImages", express.static("profileImages"));
+app.use("/profileImages", express.static(__dirname + "/profileImages"));
 // if (process.env.NODE_ENV === "production") {
 //   app.use(express.static("client/tweety/build"));
 // }
