@@ -256,7 +256,7 @@ export const getAllFollowing = async (req, res) => {
   }
 };
 
-export const getAllFollowers = (req, res) => {
+export const getAllFollowers = async (req, res) => {
   try {
     let user = await User.findOne({ _id: req.params.user_id });
     if (user) {
