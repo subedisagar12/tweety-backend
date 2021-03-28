@@ -8,6 +8,8 @@ import {
   UnFollowUser,
   getSingleUser,
   updateUserInfo,
+  getAllFollowers,
+  getAllFollowing,
 } from "../controllers/UserController.js";
 
 import multer from "multer";
@@ -54,4 +56,6 @@ UserRoutes.post(
 );
 UserRoutes.post("/follow/:following_id", authenticate, FollowUser);
 UserRoutes.post("/unfollow/:following_id", authenticate, UnFollowUser);
+UserRoutes.get("/:user_id/followers", authenticate, getAllFollowers);
+UserRoutes.get("/:user_id/following", authenticate, getAllFollowing);
 export default UserRoutes;

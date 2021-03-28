@@ -234,3 +234,45 @@ export const updateUserInfo = async (req, res) => {
     return res.send({ data: {}, success: "", error: e.message });
   }
 };
+
+export const getAllFollowing = async (req, res) => {
+  try {
+    let user = await User.findOne({ _id: req.params.user_id });
+    if (user) {
+      return res.send({
+        data: user.following,
+        success: "Following fetched successfully",
+        error: "",
+      });
+    } else {
+      return res.send({
+        data: data,
+        success: "",
+        error: "Cannot get followings",
+      });
+    }
+  } catch (e) {
+    return res.send({ data: {}, success: "", error: e.message });
+  }
+};
+
+export const getAllFollowers = (req, res) => {
+  try {
+    let user = await User.findOne({ _id: req.params.user_id });
+    if (user) {
+      return res.send({
+        data: user.followers,
+        success: "Followers fetched successfully",
+        error: "",
+      });
+    } else {
+      return res.send({
+        data: data,
+        success: "",
+        error: "Cannot get followers",
+      });
+    }
+  } catch (e) {
+    return res.send({ data: {}, success: "", error: e.message });
+  }
+};
