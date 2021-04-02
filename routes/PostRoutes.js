@@ -18,6 +18,6 @@ PostRoutes.post("/", addNewPost);
 PostRoutes.post("/like/:post_id", LikePost);
 PostRoutes.post("/delete/:post_id", DeletePost);
 PostRoutes.post("/update/:post_id", UpdatePost);
-PostRoutes.get("/:user_id", GetAllPostOfUser);
+PostRoutes.get("/posts/:user_id", GetAllPostOfUser);
 
 export default PostRoutes;
