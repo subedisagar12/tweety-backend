@@ -113,16 +113,19 @@ export const DeletePost = async (req, res) => {
 
 export const UpdatePost = (req, res) => {};
 
-export const GetAllPostOfUser=(req,res)=>{
-    try{
-        let posts=await Post.find({author:req.params.user_id})
-        if(posts){
-          return res.send({data:posts,success:"Posts fetched successfully",error:""})
-        }
-        else{
-          return res.send({data:{},success:"",error:"Server Error"})
-        }
-    }catch(e){
-      return res.send({data:{},success:"",error:e.message})
+export const GetAllPostOfUser = async (req, res) => {
+  try {
+    let posts = await Post.find({ author: req.params.user_id });
+    if (posts) {
+      return res.send({
+        data: posts,
+        success: "Posts fetched successfully",
+        error: "",
+      });
+    } else {
+      return res.send({ data: {}, success: "", error: "Server Error" });
     }
-}
+  } catch (e) {
+    return res.send({ data: {}, success: "", error: e.message });
+  }
+};
