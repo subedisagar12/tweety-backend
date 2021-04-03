@@ -276,3 +276,28 @@ export const getAllFollowers = async (req, res) => {
     return res.send({ data: {}, success: "", error: e.message });
   }
 };
+
+export const getMutualFollowers = async (req, res) => {
+  try {
+    let user1 = await User.findOne({
+      _id: req.params.loggedUserId,
+    });
+    let loggedUserFollowers = user1.followers;
+
+    let user2 = await User.findOne({ _id: req.params.userId });
+
+    let userFollowers = user2.followers;
+    let longer =
+      loggedUserFollowers.length > userFollowers.length
+        ? loggedUserFollowers
+        : userFollowers;
+    let shorter =
+      loggedUserFollowers.length < userFollowers.length
+        ? loggedUserFollowers
+        : userFollowers;
+    let mutualFollowers = longer.filter((element) => shorter.includes(element));
+    return res.send({ data: mutualFollowers, success: "success", error: "" });
+  } catch (e) {
+    return res.send({ data: {}, success: "", error: e.message });
+  }
+};

@@ -10,6 +10,7 @@ import {
   updateUserInfo,
   getAllFollowers,
   getAllFollowing,
+  getMutualFollowers,
 } from "../controllers/UserController.js";
 
 import multer from "multer";
@@ -58,4 +59,9 @@ UserRoutes.post("/follow/:following_id", authenticate, FollowUser);
 UserRoutes.post("/unfollow/:following_id", authenticate, UnFollowUser);
 UserRoutes.get("/:user_id/followers", authenticate, getAllFollowers);
 UserRoutes.get("/:user_id/following", authenticate, getAllFollowing);
+UserRoutes.get(
+  "/mutualfollower/:loggedUserId/:userId",
+  authenticate,
+  getMutualFollowers
+);
 export default UserRoutes;
