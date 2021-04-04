@@ -301,3 +301,28 @@ export const getMutualFollowers = async (req, res) => {
     return res.send({ data: {}, success: "", error: e.message });
   }
 };
+
+export const getMutualFollowing = async (req, res) => {
+  try {
+    let user1 = await User.findOne({
+      _id: req.params.loggedUserId,
+    });
+    let loggedUserFollowing = user1.following;
+
+    let user2 = await User.findOne({ _id: req.params.userId });
+
+    let userFollowing = user2.following;
+    let longer =
+      loggedUserFollowing.length > userFollowing.length
+        ? loggedUserFollowing
+        : userFollowing;
+    let shorter =
+      loggedUserFollowing.length < userFollowing.length
+        ? loggedUserFollowing
+        : userFollowing;
+    let mutualFollowing = longer.filter((element) => shorter.includes(element));
+    return res.send({ data: mutualFollowing, success: "success", error: "" });
+  } catch (e) {
+    return res.send({ data: {}, success: "", error: e.message });
+  }
+};

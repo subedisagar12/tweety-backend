@@ -11,6 +11,7 @@ import {
   getAllFollowers,
   getAllFollowing,
   getMutualFollowers,
+  getMutualFollowing,
 } from "../controllers/UserController.js";
 
 import multer from "multer";
@@ -63,5 +64,10 @@ UserRoutes.get(
   "/mutualfollower/:loggedUserId/:userId",
   authenticate,
   getMutualFollowers
+);
+UserRoutes.get(
+  "/mutualfollowing/:loggedUserId/:userId",
+  authenticate,
+  getMutualFollowing
 );
 export default UserRoutes;
