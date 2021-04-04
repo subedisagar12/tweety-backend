@@ -20,10 +20,9 @@ export const getCommentOnPost = async (req, res) => {
 
 export const postCommentOnPost = async (req, res) => {
   try {
-    let user = await User.findOne({ _id: req.headers["auth-user-id"] });
     let comment = await new Comment({
       comment: req.body.comment,
-      commented_by: user,
+      commented_by: req.headers["auth-user-id"],
       post: req.params.post_id,
     });
 

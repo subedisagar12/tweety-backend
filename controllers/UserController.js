@@ -1,6 +1,6 @@
 import User from "../models/UserModel.js";
 import hashPassword from "password-hash";
-
+import Comment from "../models/CommentModel.js";
 // Function to validate Email
 const validateEmail = (emailToBeValidated) => {
   //   let regex = /[a-zA-Z]+[a-zA-z0-9]{4,}[@][a-zA-Z]{2,}[.][a-zA-Z]{2,}/;
