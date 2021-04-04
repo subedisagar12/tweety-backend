@@ -12,6 +12,7 @@ import {
   getAllFollowing,
   getMutualFollowers,
   getMutualFollowing,
+  removeProfileImage,
 } from "../controllers/UserController.js";
 
 import multer from "multer";
@@ -70,4 +71,6 @@ UserRoutes.get(
   authenticate,
   getMutualFollowing
 );
+
+UserRoutes.post("/profileImage/remove", authenticate, removeProfileImage);
 export default UserRoutes;

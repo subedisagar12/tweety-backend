@@ -326,3 +326,21 @@ export const getMutualFollowing = async (req, res) => {
     return res.send({ data: {}, success: "", error: e.message });
   }
 };
+
+export const removeProfileImage = async (req, res) => {
+  try {
+    let user = await User.findOneAndUpdate(
+      { _id: req.headers["auth-user-id"] },
+      {
+        profileImage: "",
+      }
+    );
+    return res.send({
+      data: user,
+      success: "Profile Image Removed",
+      error: "",
+    });
+  } catch (e) {
+    return res.send({ data: {}, success: "", error: e.message });
+  }
+};
