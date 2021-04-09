@@ -20,6 +20,34 @@ export const getAllPosts = async (req, res) => {
   }
 };
 
+const sortByDate = (arr) => {
+  const sorter = (a, b) => {
+    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+  };
+  arr.sort(sorter);
+};
+
+export const getAllPostOfFollowedPeople = async (req, res) => {
+  try {
+    let allPosts = [];
+    let user = await User.findOne({ _id: req.params.user_id });
+    let following = user.following;
+    following.push(req.params.user_id);
+
+    for (let i = 0; i < following.length; i++) {
+      let tempPost = await Post.find({ author: following[i] });
+      for (let i = 0; i < tempPost.length; i++) {
+        allPosts.push(tempPost[i]);
+      }
+    }
+
+    sortByDate(allPosts);
+    return res.send({ data: allPosts, success: "Posts Fetched", error: "" });
+  } catch (e) {
+    return res.send({ data: {}, success: "", error: e.message });
+  }
+};
+
 export const getPostById = (req, res) => {
   return res.send(req.params.id);
 };

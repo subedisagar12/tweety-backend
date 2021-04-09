@@ -8,10 +8,12 @@ import {
   DeletePost,
   UpdatePost,
   GetAllPostOfUser,
+  getAllPostOfFollowedPeople,
 } from "../controllers/PostController.js";
 const PostRoutes = express.Router();
 
 PostRoutes.get("/", getAllPosts);
+PostRoutes.get("/allPost/:user_id", getAllPostOfFollowedPeople);
 PostRoutes.get("/:id", getPostById);
 PostRoutes.get("/:id/detail", getDetailPostView);
 PostRoutes.post("/", addNewPost);
